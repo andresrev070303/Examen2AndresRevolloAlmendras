@@ -5,6 +5,6 @@ data class DollarModel(
     var officialSell: String? = null,
     var parallelBuy: String? = null,
     var parallelSell: String? = null,
-    var updatedAt: Long? = null    // útil para el paso de la fecha
+    var updatedAt: Long? = null
 )
 

@@ -29,9 +29,15 @@ fun DollarScreen(viewModelDollar: DollarViewModel = koinViewModel()) {
             }
             is DollarViewModel.DollarUIState.Success -> {
                 val d = stateValue.data
+
                 Text("USD Oficial: Compra ${d.officialBuy ?: "-"} | Venta ${d.officialSell ?: "-"}")
 
-
+                // Mostrar fecha de actualización (si existe)
+                d.updatedAt?.let { ts ->
+                    val formatted = java.text.SimpleDateFormat("dd/MM/yyyy HH:mm")
+                        .format(java.util.Date(ts))
+                    Text("Última actualización: $formatted")
+                }
             }
         }
     }
