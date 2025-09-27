@@ -5,11 +5,7 @@ import com.calyrsoft.ucbp1.features.dollar.domain.repository.IDollarRepository
 import kotlinx.coroutines.flow.Flow
 
 class FetchDollarUseCase(
-    val repository: IDollarRepository
+    private val repo: IDollarRepository
 ) {
-
-
-    suspend fun invoke(): Flow<DollarModel> {
-        return repository.getDollar()
-    }
+    operator fun invoke(): Flow<DollarModel> = repo.observeDollar()
 }

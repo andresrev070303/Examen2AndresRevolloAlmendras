@@ -1,36 +1,28 @@
 package com.calyrsoft.ucbp1.features.dollar.data.datasource
 
 import com.calyrsoft.ucbp1.features.dollar.domain.model.DollarModel
-import com.google.firebase.Firebase
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.database
+import com.google.firebase.database.*
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 
 class RealTimeRemoteDataSource {
-    suspend fun getDollarUpdates(): Flow<DollarModel> = callbackFlow {
-        val database = Firebase.database
-        val myRef = database.getReference("dollar")
+    fun getDollarUpdates(): Flow<DollarModel> = callbackFlow {
+        val db = FirebaseDatabase.getInstance()
+        val ref = db.getReference("dollar")
 
-        val callback = object : ValueEventListener {
+        val listener = object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val v = snapshot.getValue(DollarModel::class.java)
+                val model = (v ?: DollarModel()).copy(updatedAt = System.currentTimeMillis())
+                trySend(model)
+            }
             override fun onCancelled(error: DatabaseError) {
                 close(error.toException())
             }
-
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val value = snapshot.getValue(DollarModel::class.java)
-                if (value != null) {
-                    trySend(value)
-                } else {
-                    trySend(DollarModel("", "", "", ""))
-                }
-            }
         }
 
-        myRef.addValueEventListener(callback)
-        awaitClose { myRef.removeEventListener(callback) }
+        ref.addValueEventListener(listener)
+        awaitClose { ref.removeEventListener(listener) }
     }
 }
