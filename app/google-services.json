@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "959888903279",
+    "project_id": "realtime-database-de871",
+    "storage_bucket": "realtime-database-de871.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:959888903279:android:51f676ade9e4d6217dd19a",
+        "android_client_info": {
+          "package_name": "com.calyrsoft.ucbp1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDM_ooClP1LZNXDiYHAwxZwMSMxgWc9XBs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
