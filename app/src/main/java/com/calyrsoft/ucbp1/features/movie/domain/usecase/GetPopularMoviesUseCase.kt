@@ -4,9 +4,8 @@ import com.calyrsoft.ucbp1.features.movie.domain.model.MovieModel
 import com.calyrsoft.ucbp1.features.movie.domain.repository.IMoviesRepository
 
 class GetPopularMoviesUseCase(
-    private val repository: IMoviesRepository
+    private val repo: IMoviesRepository
 ) {
-    suspend operator fun invoke(page: Int): Result<List<MovieModel>> {
-       return repository.getPopular(page)
-    }
+    suspend operator fun invoke(page: Int): Result<List<MovieModel>> =
+        repo.getPopularWithLikes(page)
 }

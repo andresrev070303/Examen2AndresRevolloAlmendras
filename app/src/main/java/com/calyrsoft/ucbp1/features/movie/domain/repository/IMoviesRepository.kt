@@ -3,5 +3,6 @@ package com.calyrsoft.ucbp1.features.movie.domain.repository
 import com.calyrsoft.ucbp1.features.movie.domain.model.MovieModel
 
 interface IMoviesRepository {
-    suspend fun getPopular(page: Int): Result<List<MovieModel>>
+    suspend fun getPopularWithLikes(page: Int): Result<List<MovieModel>>
+    suspend fun toggleLike(movieId: Long): Result<Unit>
 }
